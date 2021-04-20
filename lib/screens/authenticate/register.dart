@@ -26,6 +26,7 @@ class _RegisterState extends State<Register> {
         ? Loading()
         : Scaffold(
             backgroundColor: Colors.brown[100],
+            resizeToAvoidBottomInset: false,
             body: SafeArea(
               child: Container(
                   padding:

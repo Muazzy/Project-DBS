@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:brew_crew_2/models/user.dart';
 import 'package:brew_crew_2/services/database.dart';
 import 'package:brew_crew_2/shared/constants.dart';
@@ -31,11 +33,14 @@ class _SettingsFormState extends State<SettingsForm> {
               key: _formKey,
               child: Column(
                 children: <Widget>[
-                  Text(
-                    'Update your Chai Prefrences',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
+                  Flexible(
+                    flex: 2,
+                    child: Text(
+                      'Update your Chai Prefrences',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   SizedBox(height: 20.0),
@@ -47,60 +52,69 @@ class _SettingsFormState extends State<SettingsForm> {
                     onChanged: (val) => setState(() => _currentName = val),
                   ),
                   SizedBox(height: 10.0),
-                  DropdownButtonFormField(
-                    value: _currentSugars ?? userData.sugars,
-                    decoration: textInputDecoration,
-                    items: sugars.map((sugar) {
-                      return DropdownMenuItem(
-                        value: sugar,
-                        child: Text('$sugar sugars'),
-                      );
-                    }).toList(),
-                    onChanged: (val) => setState(() => _currentSugars = val),
+                  Flexible(
+                    flex: 2,
+                    child: DropdownButtonFormField(
+                      value: _currentSugars ?? userData.sugars,
+                      decoration: textInputDecoration,
+                      items: sugars.map((sugar) {
+                        return DropdownMenuItem(
+                          value: sugar,
+                          child: Text('$sugar sugars'),
+                        );
+                      }).toList(),
+                      onChanged: (val) => setState(() => _currentSugars = val),
+                    ),
                   ),
                   SizedBox(height: 10.0),
-                  Row(
-                    children: [
-                      Text(
-                        'Strength:',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors
-                                .brown[_currentStrength ?? userData.strength]),
-                      ),
-                      Slider(
-                        value:
-                            (_currentStrength ?? userData.strength).toDouble(),
-                        activeColor:
-                            Colors.brown[_currentStrength ?? userData.strength],
-                        inactiveColor:
-                            Colors.brown[_currentStrength ?? userData.strength],
-                        min: 100.0,
-                        max: 900.0,
-                        divisions: 8,
-                        onChanged: (val) =>
-                            setState(() => _currentStrength = val.round()),
-                      ),
-                    ],
+                  Flexible(
+                    flex: 2,
+                    child: Row(
+                      children: [
+                        Text(
+                          'Strength:',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.brown[
+                                  _currentStrength ?? userData.strength]),
+                        ),
+                        Slider(
+                          value: (_currentStrength ?? userData.strength)
+                              .toDouble(),
+                          activeColor: Colors
+                              .brown[_currentStrength ?? userData.strength],
+                          inactiveColor: Colors
+                              .brown[_currentStrength ?? userData.strength],
+                          min: 100.0,
+                          max: 900.0,
+                          divisions: 8,
+                          onChanged: (val) =>
+                              setState(() => _currentStrength = val.round()),
+                        ),
+                      ],
+                    ),
                   ),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.brown, // background
-                        onPrimary: Colors.white, // foreground
-                      ),
-                      child: Text(
-                        'Update',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        if (_formKey.currentState.validate()) {
-                          await DatabaseService(uid: user.uid).updateUserData(
-                              _currentName ?? userData.name,
-                              _currentSugars ?? userData.sugars,
-                              _currentStrength ?? userData.strength);
-                          Navigator.pop(context);
-                        }
-                      }),
+                  Flexible(
+                    flex: 1,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.brown, // background
+                          onPrimary: Colors.white, // foreground
+                        ),
+                        child: Text(
+                          'Update',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () async {
+                          if (_formKey.currentState.validate()) {
+                            await DatabaseService(uid: user.uid).updateUserData(
+                                _currentName ?? userData.name,
+                                _currentSugars ?? userData.sugars,
+                                _currentStrength ?? userData.strength);
+                            Navigator.pop(context);
+                          }
+                        }),
+                  ),
                 ],
               ),
             );

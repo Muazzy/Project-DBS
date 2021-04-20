@@ -31,7 +31,7 @@ class Home extends StatelessWidget {
           title: Text(
             'Chai Sangat',
             style: TextStyle(
-              color: Colors.brown[100],
+              color: Colors.brown[50],
               fontFamily: 'ConcertOne',
               fontSize: 25,
               fontWeight: FontWeight.bold,
@@ -58,7 +58,7 @@ class Home extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.brown[400],
+          backgroundColor: Colors.brown[800],
           hoverColor: Colors.brown,
           focusColor: Colors.brown[700],
           child: Icon(
