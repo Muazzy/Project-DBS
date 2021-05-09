@@ -29,32 +29,29 @@ class _SettingsFormState extends State<SettingsForm> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             UserData userData = snapshot.data;
-            return Form(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  Flexible(
-                    flex: 2,
-                    child: Text(
+            return SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    Text(
                       'Update your Chai Prefrences',
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20.0),
-                  TextFormField(
-                    initialValue: userData.name,
-                    decoration: textInputDecoration,
-                    validator: (val) =>
-                        val.isEmpty ? 'Please enter a name' : null,
-                    onChanged: (val) => setState(() => _currentName = val),
-                  ),
-                  SizedBox(height: 10.0),
-                  Flexible(
-                    flex: 2,
-                    child: DropdownButtonFormField(
+                    SizedBox(height: 20.0),
+                    TextFormField(
+                      initialValue: userData.name,
+                      decoration: textInputDecoration,
+                      validator: (val) =>
+                          val.isEmpty ? 'Please enter a name' : null,
+                      onChanged: (val) => setState(() => _currentName = val),
+                    ),
+                    SizedBox(height: 10.0),
+                    DropdownButtonFormField(
                       value: _currentSugars ?? userData.sugars,
                       decoration: textInputDecoration,
                       items: sugars.map((sugar) {
@@ -65,11 +62,8 @@ class _SettingsFormState extends State<SettingsForm> {
                       }).toList(),
                       onChanged: (val) => setState(() => _currentSugars = val),
                     ),
-                  ),
-                  SizedBox(height: 10.0),
-                  Flexible(
-                    flex: 2,
-                    child: Row(
+                    SizedBox(height: 10.0),
+                    Row(
                       children: [
                         Text(
                           'Strength:',
@@ -93,10 +87,7 @@ class _SettingsFormState extends State<SettingsForm> {
                         ),
                       ],
                     ),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: ElevatedButton(
+                    ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           primary: Colors.brown, // background
                           onPrimary: Colors.white, // foreground
@@ -114,8 +105,8 @@ class _SettingsFormState extends State<SettingsForm> {
                             Navigator.pop(context);
                           }
                         }),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           } else {
